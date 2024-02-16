@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Desafio Aula 6</title>
+</head>
+<body>
+
+<h1>Desafio Aula 6</h1>
+
+<h2>Simulador de Financiamento</h2>
+
+<script>
+
+function calcularFinanciamento() {
+
+    let entrada = parseFloat(prompt("Digite o valor que pretende pagar de entrada:"));
+    let numParcelas = parseInt(prompt("Digite o número total de parcelas:"));
+    let valorImovel = parseFloat(prompt("Digite o valor total do imóvel:"));
+
+    const taxaJurosMensal = 11 / 12 / 100;
+    let parcela = 0;
+    let saldoDevedor = valorImovel - entrada;
+    let meses = 0;
+
+    while (meses < numParcelas && saldoDevedor > 0) {
+        meses++;
+        const juros = saldoDevedor * taxaJurosMensal;
+        parcela = (saldoDevedor * taxaJurosMensal) / (1 - Math.pow(1 + taxaJurosMensal, -numParcelas));
+        saldoDevedor -= parcela - juros;
+    }
+
+    alert(`Número de meses: ${meses}\n
+        Valor da parcela: R$ ${parcela.toFixed(2)}`) 
+}
+
+let continuar;
+do {
+    calcularFinanciamento();
+    continuar = prompt("Deseja realizar outra simulação? (sim/não)").toLowerCase();
+} while (continuar === "sim");
+
+</script>
+</body>
+</html>
